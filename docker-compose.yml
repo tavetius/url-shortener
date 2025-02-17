@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: url-shortener-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: url-shortener-backend
+    ports:
+      - "8000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/urlShortenerDB
+      - BASE_URL=http://localhost
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: url-shortener-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+

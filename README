@@ -1,0 +1,2 @@
+# This README provides instructions for running the URL shortener application using Docker Compose.
+# After starting the application, you can access it by navigating to localhost in your web browser.
