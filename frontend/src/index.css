@@ -29,4 +29,15 @@ button:hover {
 .error {
   color: red;
   margin-top: 10px;
+  font-weight: bold;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.result {
+  margin-top: 15px;
 }
